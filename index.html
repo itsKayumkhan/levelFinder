@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Prediction Level Finder - Calculate Levels Easily</title>
+<meta name="description" content="Discover how to calculate levels in color prediction with our easy-to-use level finder tool. Perfect for enhancing your color prediction strategies.">
+<meta name="keywords" content="price calculator, level calculator, price level calculation, number collection calculator">
+<link rel="canonical" href="https://www.yourwebsite.com/price-level-calculator">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 0;
+  }
+  h1, h2 {
+    color: #333;
+  }
+  div {
+    margin-bottom: 10px;
+  }
+  label {
+    margin-right: 10px;
+  }
+  input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+  }
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+  #result {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    border-radius: 4px;
+    color: #3c763d;
+  }
+</style>
+<script>
+  function calculate() {
+    let price = parseInt(document.getElementById('price').value, 10);
+    let level = parseInt(document.getElementById('level').value, 10);
+    let numbers = []; // To store the collection of numbers
+    let sum = 0; // To keep track of the sum of the collection
+    let i = price; // Starting i from price and finding the nearest number fitting the criteria
+
+    // Finding the starting number
+    while (i > 0) {
+      let tempSum = i;
+      let tempI = i;
+      for (let j = 1; j < level; j++) {
+        tempI *= 2;
+        tempSum += tempI;
+        if (tempSum > price) break;
+      }
+      if (tempSum <= price) {
+        sum = i;
+        numbers.push(i);
+        break;
+      }
+      i--;
+    }
+
+    // Generating the collection based on levels
+    for (let k = 1; k < level; k++) {
+      i *= 2;
+      if (sum + i <= price) {
+        sum += i;
+        numbers.push(i);
+      } else {
+        break;
+      }
+    }
+
+    // Displaying the result
+    document.getElementById('result').innerText = 'Numbers: ' + numbers.join(', ') + '. Sum: ' + sum;
+  }
+</script>
+</head>
+<body>
+<header>
+  <h1>Color Prediction Level Finder</h1>
+</header>
+<main>
+  <section>
+    <h2>Calculate Your Numbers</h2>
+    <form id="calculator-form">
+      <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required>
+      </div>
+      <div>
+        <label for="level">Level:</label>
+        <input type="number" id="level" name="level" required>
+      </div>
+      <button type="button" onclick="calculate()">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </section>
+</main>
+<footer>
+  <p>&copy; 2024 Your Website. All rights reserved.</p>
+</footer>
+</body>
+</html>
